@@ -11,10 +11,5 @@ public class HomeController : Controller
     {
         return View();
     }
-
-    // public IActionResult Quadrants()
-    // {
-    //     var tasks = _taskRepository.GetAllTAsks();
-    //     return View(tasks);
-    // }
+    
 }
