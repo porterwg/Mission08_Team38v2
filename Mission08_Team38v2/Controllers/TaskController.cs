@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Mission08_Team38v2.Models;
 using System.Linq;
+using Task = Mission08_Team38v2.Models.Task;
 
 namespace Mission08_Team38v2.Controllers
 {
@@ -17,15 +18,15 @@ namespace Mission08_Team38v2.Controllers
         // Quadrants View
         public IActionResult Quadrants()
         {
-            var tasks = _repo.GetAllTasks();
+            var tasks = _repo.Tasks;
             return View(tasks);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Categories = _repo.GetCategories();
-            return View();
+            ViewBag.Categories = _repo.Categories;
+            return View("AddEdit");
         }
 
         [HttpPost]
@@ -37,17 +38,17 @@ namespace Mission08_Team38v2.Controllers
                 return RedirectToAction("Quadrants");
             }
 
-            ViewBag.Categories = _repo.GetCategories();
-            return View(task);
+            ViewBag.Categories = _repo.Categories;
+            return View("AddEdit", task);
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var task = _repo.GetTaskById(id);
+            var task = _repo.Tasks.FirstOrDefault(t => t.TaskId == id);
             if (task == null) return NotFound();
 
-            ViewBag.Categories = _repo.GetCategories();
+            ViewBag.Categories = _repo.Categories;
             return View(task);
         }
 
@@ -57,11 +58,11 @@ namespace Mission08_Team38v2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = _repo.GetCategories();
+                ViewBag.Categories = _repo.Categories;
                 return View(updatedTask);
             }
             
-            _repo.UpdateTask(id, updatedTask);
+            _repo.EditTask(updatedTask);
 
             if (Request.Headers["X-Requested_With"] == "XMLHttpRequest")
             {
@@ -75,14 +76,22 @@ namespace Mission08_Team38v2.Controllers
         [HttpPost]
         public IActionResult Delete(int id)
         {
-            _repo.DeleteTask(id);
+            var task = _repo.Tasks.FirstOrDefault(t => t.TaskId == id);
+            if (task == null) return NotFound();
+            
+            _repo.DeleteTask(task);
             return Json(new { success = true });
         }
 
         // Mark as Completed
         public IActionResult Complete(int id)
         {
-            _repo.MarkAsCompleted(id);
+            var task = _repo.Tasks.FirstOrDefault(t => t.TaskId == id);
+            if (task == null) return NotFound();
+
+            task.Completed = true;
+            _repo.EditTask(task);
+
             return RedirectToAction("Quadrants");
         }
     }
