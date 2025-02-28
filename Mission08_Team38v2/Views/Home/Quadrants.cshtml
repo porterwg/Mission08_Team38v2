@@ -1,0 +1,109 @@
+﻿@model IEnumerable<YourNamespace.Models.Task>
+
+@{
+    ViewData["Title"] = "Quadrants";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center">Task Quadrants</h2>
+
+    <div class="row">
+        <!-- Quadrant I: Important / Urgent -->
+        <div class="col-md-6 mb-4">
+            <div class="card" style="background-color: #ff6961; color: white;">
+                <div class="card-header">
+                    <h4>Quadrant I: Important / Urgent</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var task in Model.Where(t => t.Quadrant == "I" && !t.Completed))
+                    {
+                        <li class="list-group-item" style="background-color: #ff6961; color: white;">
+                            <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
+                            <br>
+                            <small>Category: @task.Category</small>
+                            <div class="mt-2">
+                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
+                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quadrant II: Important / Not Urgent -->
+        <div class="col-md-6 mb-4">
+            <div class="card" style="background-color: #ffb347; color: white;">
+                <div class="card-header">
+                    <h4>Quadrant II: Important / Not Urgent</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var task in Model.Where(t => t.Quadrant == "II" && !t.Completed))
+                    {
+                        <li class="list-group-item" style="background-color: #ffb347; color: white;">
+                            <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
+                            <br>
+                            <small>Category: @task.Category</small>
+                            <div class="mt-2">
+                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
+                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Quadrant III: Not Important / Urgent -->
+        <div class="col-md-6 mb-4">
+            <div class="card" style="background-color: #77dd77; color: white;">
+                <div class="card-header">
+                    <h4>Quadrant III: Not Important / Urgent</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var task in Model.Where(t => t.Quadrant == "III" && !t.Completed))
+                    {
+                        <li class="list-group-item" style="background-color: #77dd77; color: white;">
+                            <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
+                            <br>
+                            <small>Category: @task.Category</small>
+                            <div class="mt-2">
+                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
+                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+        <!-- Quadrant IV: Not Important / Not Urgent -->
+        <div class="col-md-6 mb-4">
+            <div class="card" style="background-color: #aec6cf; color: white;">
+                <div class="card-header">
+                    <h4>Quadrant IV: Not Important / Not Urgent</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var task in Model.Where(t => t.Quadrant == "IV" && !t.Completed))
+                    {
+                        <li class="list-group-item" style="background-color: #aec6cf; color: white;">
+                            <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
+                            <br>
+                            <small>Category: @task.Category</small>
+                            <div class="mt-2">
+                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
+                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
