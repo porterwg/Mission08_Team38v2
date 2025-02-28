@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<YourNamespace.Models.Task>
 
 @{
-    ViewData["Title"] = "Quadrants";
+    ViewData["Title"] = "Task Quadrants";
 }
 
 <div class="container mt-4">
@@ -22,8 +22,14 @@
                             <br>
                             <small>Category: @task.Category</small>
                             <div class="mt-2">
-                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
-                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <button class="btn btn-warning btn-sm"
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                    Update
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                        onclick="openDeleteModal('@task.TaskId')">
+                                    Delete
+                                </button>
                                 <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
                             </div>
                         </li>
@@ -46,8 +52,14 @@
                             <br>
                             <small>Category: @task.Category</small>
                             <div class="mt-2">
-                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
-                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <button class="btn btn-warning btn-sm"
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                    Update
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                        onclick="openDeleteModal('@task.TaskId')">
+                                    Delete
+                                </button>
                                 <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
                             </div>
                         </li>
@@ -72,8 +84,14 @@
                             <br>
                             <small>Category: @task.Category</small>
                             <div class="mt-2">
-                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
-                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <button class="btn btn-warning btn-sm"
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                    Update
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                        onclick="openDeleteModal('@task.TaskId')">
+                                    Delete
+                                </button>
                                 <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
                             </div>
                         </li>
@@ -96,8 +114,14 @@
                             <br>
                             <small>Category: @task.Category</small>
                             <div class="mt-2">
-                                <a class="btn btn-light btn-sm" href="/Tasks/Edit/@task.TaskId">Update</a>
-                                <a class="btn btn-danger btn-sm" href="/Tasks/Delete/@task.TaskId">Delete</a>
+                                <button class="btn btn-warning btn-sm"
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                    Update
+                                </button>
+                                <button class="btn btn-danger btn-sm"
+                                        onclick="openDeleteModal('@task.TaskId')">
+                                    Delete
+                                </button>
                                 <a class="btn btn-success btn-sm" href="/Tasks/Complete/@task.TaskId">Mark as Completed</a>
                             </div>
                         </li>
@@ -107,3 +131,47 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Open Edit Modal
+    function openEditModal(id, name, dueDate, category) {
+        $('#editTaskId').val(id);
+        $('#editTaskName').val(name);
+        $('#editDueDate').val(dueDate);
+        $('#editCategory').val(category);
+        $('#editTaskModal').modal('show');
+    }
+
+    // Submit Edit Form
+    $('#editTaskForm').submit(function (event) {
+        event.preventDefault();
+        var taskData = $(this).serialize();
+        var taskId = $('#editTaskId').val();
+
+        $.ajax({
+            type: "POST",
+            url: `/Tasks/Edit/${taskId}`,
+            data: taskData,
+            success: function () {
+                location.reload();
+            }
+        });
+    });
+
+    // Open Delete Modal
+    function openDeleteModal(id) {
+        $('#confirmDeleteBtn').attr('onclick', `confirmDelete(${id})`);
+        $('#deleteTaskModal').modal('show');
+    }
+
+    // Confirm Delete
+    function confirmDelete(id) {
+        $.ajax({
+            type: "POST",
+            url: `/Tasks/Delete/${id}`,
+            success: function () {
+                location.reload();
+            }
+        });
+    }
+</script>
