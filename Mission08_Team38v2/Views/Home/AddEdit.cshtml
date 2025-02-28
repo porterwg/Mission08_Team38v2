@@ -4,7 +4,7 @@
 @{
 }
 <!--This is just assuming that the Model is called TaskModel-->
-@model Mission08_Team3_8.Models.TaskModel
+@model IEnumerable<Mission08_Team38v2.Models.Task>
 
 <!--
     this is the example model that i worked off of - i hope it works similarly to what Jordan set up
@@ -29,7 +29,7 @@ if there is an id, it will grab the info for editing-->
     it should check if the data is valid, and if its a new task add it, otherwise update the existing one
     and then redirect to the Quadrants page after you save.
 -->
-<form asp-action="SaveTask" asp-controller="HomeController">
+<form asp-action="SaveTask" asp-controller="TaskController">
 
     <!-- Task-->
     <div class="form-group">
