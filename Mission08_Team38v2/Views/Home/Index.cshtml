@@ -2,7 +2,55 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@{
+    Layout = "_Layout";
+}
+
+<!-- Hero Section -->
+<section class="hero bg-dark text-light text-center py-5">
+    <div class="container">
+        <h1 class="display-4 fw-bold">Welcome to PriorityPlanner</h1>
+        <p class="lead mb-4">Your go-to app for organizing and managing tasks based on urgency and importance.</p>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="display-5 mb-4">What is PriorityPlanner?</h2>
+        <p class="lead mb-4">PriorityPlanner helps you categorize and manage tasks by urgency and importance, following the principles of the 7 Habits of Highly Effective People. With our easy-to-use interface, you can quickly add tasks, mark them as completed, and view your tasks organized by priority quadrant.</p>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="features py-5">
+    <div class="container">
+        <h2 class="text-center mb-4">Key Features</h2>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Task Management</h4>
+                        <p class="card-text">Easily add, edit, and categorize tasks with due dates. Mark tasks as completed when you're done!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Quadrant Organization</h4>
+                        <p class="card-text">View your tasks sorted into four quadrants based on their urgency and importance. Stay focused on what matters most!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h4 class="card-title">Category Filters</h4>
+                        <p class="card-text">Filter your tasks by categories like Home, School, Work, and Church. Stay organized in every area of life!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
