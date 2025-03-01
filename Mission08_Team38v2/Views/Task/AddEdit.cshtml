@@ -7,13 +7,13 @@
 
     <!-- Task Name -->
     <div class="form-group">
-        <label asp-for="TaskName"></label>
+        <label asp-for="TaskName">Task Name</label>
         <input asp-for="TaskName" class="form-control" required />
     </div>
 
     <!-- Due Date -->
     <div class="form-group">
-        <label asp-for="DueDate"></label>
+        <label asp-for="DueDate">Due Date</label>
         <input asp-for="DueDate" class="form-control" type="date" />
     </div>
 
@@ -30,7 +30,7 @@
 
     <!-- Category Dropdown (Uses ViewBag) -->
     <div class="form-group">
-        <label asp-for="CategoryId"></label>
+        <label asp-for="CategoryId">Category</label>
         <select asp-for="CategoryId" class="form-control">
             <option value="">-- Select Category --</option>
             @foreach (var category in ViewBag.Categories)
