@@ -1,0 +1,28 @@
+﻿@model Mission08_Team38v2.Models.Task
+
+<form id="editTaskForm" asp-action="Edit" asp-controller="Task" method="post">
+    <input type="hidden" asp-for="TaskId" id="editTaskId" />
+
+    <div class="mb-3">
+        <label asp-for="TaskName" class="form-label">Task Name</label>
+        <input asp-for="TaskName" class="form-control" id="editTaskName" required />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DueDate" class="form-label">Due Date</label>
+        <input asp-for="DueDate" class="form-control" id="editDueDate" type="date" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CategoryId" class="form-label">Category</label>
+        <select asp-for="CategoryId" class="form-control" id="editCategory">
+            <option value="">-- Select Category --</option>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.CategoryId">@category.CategoryName</option>
+            }
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+</form>
