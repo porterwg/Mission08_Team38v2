@@ -49,7 +49,7 @@ namespace Mission08_Team38v2.Controllers
             if (task == null) return NotFound();
 
             ViewBag.Categories = _repo.Categories;
-            return View(task);
+            return View("AddEdit", task);
         }
 
         // Edit Task
