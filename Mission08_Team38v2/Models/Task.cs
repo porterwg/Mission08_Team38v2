@@ -21,7 +21,7 @@ namespace Mission08_Team38v2.Models
         [ForeignKey("CategoryId")]
         public Category? Category { get; set; }
 
-        public bool? Completed { get; set; }
+        public bool Completed { get; set; }
 
 
     }
