@@ -1,4 +1,6 @@
-﻿namespace Mission08_Team38v2.Models
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Mission08_Team38v2.Models
 {
     public class EFTaskRepository : ITaskRepository
     {
@@ -8,7 +10,9 @@
             _context = temp;
         }
 
-        public List<Task> Tasks => _context.Tasks.ToList();
+        public List<Task> Tasks => _context.Tasks.Include(x => x.Category).ToList();
+
+
         public List<Category> Categories => _context.Categories.ToList();
 
         public void AddTask(Task task)
