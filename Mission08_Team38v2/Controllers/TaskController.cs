@@ -58,19 +58,22 @@ namespace Mission08_Team38v2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = _repo.Categories;
-                return View(updatedTask);
-            }
-            
-            _repo.EditTask(updatedTask);
-
-            if (Request.Headers["X-Requested_With"] == "XMLHttpRequest")
-            {
-                return Json(new { success = true });
+                return BadRequest("Invalid task data.");
             }
 
-            return RedirectToAction("Quadrants");
+            var task = _repo.Tasks.FirstOrDefault(t => t.TaskId == id);
+            if (task == null) return NotFound();
+
+            // Update only the fields that can be edited
+            task.TaskName = updatedTask.TaskName;
+            task.DueDate = updatedTask.DueDate;
+            task.CategoryId = updatedTask.CategoryId;
+
+            _repo.EditTask(task); // Save changes
+
+            return Json(new { success = true });
         }
+
 
         // Delete Task
         [HttpPost]
