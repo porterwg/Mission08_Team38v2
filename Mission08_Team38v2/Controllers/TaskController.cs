@@ -19,6 +19,7 @@ namespace Mission08_Team38v2.Controllers
         public IActionResult Quadrants()
         {
             var tasks = _repo.Tasks;
+            ViewBag.Categories = _repo.Categories;
             return View(tasks);
         }
 
@@ -26,7 +27,7 @@ namespace Mission08_Team38v2.Controllers
         public IActionResult Add()
         {
             ViewBag.Categories = _repo.Categories;
-            return View("AddEdit");
+            return View("AddEdit", new Task());
         }
 
         [HttpPost]
@@ -58,10 +59,11 @@ namespace Mission08_Team38v2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest("Invalid task data.");
+                ViewBag.Categories = _repo.Categories;
+                return View("AddEdit", updatedTask);
             }
 
-            var task = _repo.Tasks.FirstOrDefault(t => t.TaskId == id);
+            var task = _repo.Tasks.FirstOrDefault(t => t.TaskId == updatedTask.TaskId);
             if (task == null) return NotFound();
 
             // Update only the fields that can be edited
@@ -71,8 +73,10 @@ namespace Mission08_Team38v2.Controllers
 
             _repo.EditTask(task); // Save changes
 
-            return Json(new { success = true });
+            return RedirectToAction("Quadrants");
         }
+
+
 
 
         // Delete Task

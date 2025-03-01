@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Mission08_Team38v2.Models.Task>
+﻿   @model IEnumerable<Mission08_Team38v2.Models.Task>
 
 @{
     ViewData["Title"] = "Task Quadrants";
@@ -20,10 +20,10 @@
                         <li class="list-group-item" style="background-color: #ff6961; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
                             <br>
-                            <small>Category: @task.Category</small>
+                            <small>Category: @task.Category?.CategoryName</small>
                             <div class="mt-2">
                                 <button class="btn btn-warning btn-sm"
-                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.CategoryId')">
                                     Update
                                 </button>
                                 <button class="btn btn-danger btn-sm"
@@ -53,10 +53,10 @@
                         <li class="list-group-item" style="background-color: #ffb347; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
                             <br>
-                            <small>Category: @task.Category</small>
+                            <small>Category: @task.Category?.CategoryName</small>
                             <div class="mt-2">
                                 <button class="btn btn-warning btn-sm"
-                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.CategoryId')">
                                     Update
                                 </button>
                                 <button class="btn btn-danger btn-sm"
@@ -88,10 +88,10 @@
                         <li class="list-group-item" style="background-color: #77dd77; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
                             <br>
-                            <small>Category: @task.Category</small>
+                            <small>Category: @task.Category?.CategoryName</small>
                             <div class="mt-2">
                                 <button class="btn btn-warning btn-sm"
-                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.CategoryId')">
                                     Update
                                 </button>
                                 <button class="btn btn-danger btn-sm"
@@ -121,10 +121,10 @@
                         <li class="list-group-item" style="background-color: #aec6cf; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
                             <br>
-                            <small>Category: @task.Category</small>
+                            <small>Category: @task.Category?.CategoryName</small>
                             <div class="mt-2">
                                 <button class="btn btn-warning btn-sm"
-                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.Category')">
+                                        onclick="openEditModal('@task.TaskId', '@task.TaskName', '@task.DueDate', '@task.CategoryId')">
                                     Update
                                 </button>
                                 <button class="btn btn-danger btn-sm"
@@ -197,11 +197,11 @@
         });
     }
 
-    function openEditModal(id, name, dueDate, category) {
+    function openEditModal(id, name, dueDate, categoryId) {
         $('#editTaskId').val(id);
         $('#editTaskName').val(name);
         $('#editDueDate').val(dueDate);
-        $('#editCategory').val(category);
+        $('#editCategory').val(categoryId);
         $('#editTaskModal').modal('show');
     }
 </script>
@@ -215,38 +215,28 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="editTaskForm">
-                    <input type="hidden" id="editTaskId">
-
-                    <div class="mb-3">
-                        <label for="editTaskName" class="form-label">Task Name</label>
-                        <input type="text" class="form-control" id="editTaskName" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="editDueDate" class="form-label">Due Date</label>
-                        <input type="date" class="form-control" id="editDueDate">
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="editCategory" class="form-label">Category</label>
-                        <input type="text" class="form-control" id="editCategory">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Save Changes</button>
-                </form>
+                @await Html.PartialAsync("_EditTaskForm", new Mission08_Team38v2.Models.Task())
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function openEditModal(id, name, dueDate, category) {
+    function openEditModal(id, name, dueDate, categoryId) {
         $('#editTaskId').val(id);
         $('#editTaskName').val(name);
-        $('#editDueDate').val(dueDate);
-        $('#editCategory').val(category);
+        $('#editDueDate').val(formatDateForInput(dueDate));
+        $('#editCategory').val(categoryId);
         $('#editTaskModal').modal('show');
+    }
+
+    function formatDateForInput(dateString) {
+        if (!dateString) return '';
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = ('0' + (date.getMonth() + 1)).slice(-2);
+        const day = ('0' + date.getDate()).slice(-2);
+        return `${year}-${month}-${day}`;
     }
 
     $('#editTaskForm').submit(function (event) {
@@ -277,5 +267,5 @@
             }
         });
     });
-
 </script>
+
