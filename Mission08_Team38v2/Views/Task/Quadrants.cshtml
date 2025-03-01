@@ -15,7 +15,7 @@
                     <h4>Quadrant I: Important / Urgent</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    @foreach (var task in Model.Where(t => t.Quadrant == "I" && !t.Completed))
+                    @foreach (var task in Model.Where(t => t.Quadrant == 1 && !t.Completed))
                     {
                         <li class="list-group-item" style="background-color: #ff6961; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
@@ -45,7 +45,7 @@
                     <h4>Quadrant II: Important / Not Urgent</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    @foreach (var task in Model.Where(t => t.Quadrant == "II" && !t.Completed))
+                    @foreach (var task in Model.Where(t => t.Quadrant == 2 && !t.Completed))
                     {
                         <li class="list-group-item" style="background-color: #ffb347; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
@@ -77,7 +77,7 @@
                     <h4>Quadrant III: Not Important / Urgent</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    @foreach (var task in Model.Where(t => t.Quadrant == "III" && !t.Completed))
+                    @foreach (var task in Model.Where(t => t.Quadrant == 3 && !t.Completed))
                     {
                         <li class="list-group-item" style="background-color: #77dd77; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
@@ -107,7 +107,7 @@
                     <h4>Quadrant IV: Not Important / Not Urgent</h4>
                 </div>
                 <ul class="list-group list-group-flush">
-                    @foreach (var task in Model.Where(t => t.Quadrant == "IV" && !t.Completed))
+                    @foreach (var task in Model.Where(t => t.Quadrant == 4 && !t.Completed))
                     {
                         <li class="list-group-item" style="background-color: #aec6cf; color: white;">
                             <strong>@task.TaskName</strong> - Due: @task.DueDate?.ToString("MM/dd/yyyy")
