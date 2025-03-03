@@ -1,3 +1,4 @@
+//The home controller really just opens up the index page. See TaskController.cs for actual functionality
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Mission08_Team38v2.Models;
