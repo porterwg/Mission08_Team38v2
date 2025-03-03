@@ -1,3 +1,4 @@
+//Most of the functionality in the app comes from this controller instead of the home controller
 using Microsoft.AspNetCore.Mvc;
 using Mission08_Team38v2.Models;
 using System.Linq;
@@ -23,6 +24,7 @@ namespace Mission08_Team38v2.Controllers
             return View(tasks);
         }
 
+        //Add get and post routes
         [HttpGet]
         public IActionResult Add()
         {
@@ -43,6 +45,7 @@ namespace Mission08_Team38v2.Controllers
             return View("AddEdit", task);
         }
 
+        //Edit get route
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -75,8 +78,6 @@ namespace Mission08_Team38v2.Controllers
 
             return RedirectToAction("Quadrants");
         }
-
-
 
 
         // Delete Task
